@@ -1,0 +1,55 @@
+SOUND3DVDET_CONFIG:
+ ss_query_feat_dim: 512
+ ss_query_num: 16
+ soundfeat_channel_num: 10
+ class_num: 5
+ max_ss_num: 5
+ min_ss_num: 1
+ multiview_num: 4
+ feat_aggmethod: add
+ agg_imgfeat: true
+ agg_soundfeat: true
+ img_height: 512
+ img_width: 512
+ all_sounds_telephone: true
+
+TRANSFORMER_CONFIG:
+ d_model: 512
+ nhead: 8
+ dim_feedforward: 1024
+ dropout: 0.1
+ normalize_before: true
+ transformer_layer_num: 6
+
+IMGFEAT_EXTRACT_CONFIG:
+  extractor_name: LoFTR
+  extract_layer_name: coarse
+ 
+TRAIN_CONFIG:
+ checkpoint_dir: trained_model
+ add_param_l2regu_loss: false
+ optimizer: AdamW
+ save_every_n_epochs: 10
+ batch_size: 48
+ train_epochs: 500
+ init_lr: 0.0001
+ weight_decay: 0.0001
+ lr_decay_epochs: 100
+ lr_decay_gamma: 0.5
+ deeply_supervise: true
+ no_object_weight: 0.1
+ l1_weight: 0.1
+ ce_weight: 1.
+ log_loss_every_steps: 50
+ print_info_every_n_iters: 10
+ random_seed: 100
+ port: 5050
+ ngpus_per_node: 2
+ node_rank: 0
+ node_num: 1
+
+DATA_CONFIG:
+ train_data_dir: sound3dvdet_loftr
+ num_workers: 4
+ shuffle: true
+ pin_memory: true
